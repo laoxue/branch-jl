@@ -5,50 +5,55 @@
             <ul>
                 <li>
                     <b>您的姓名</b>
-                    <input type="text" placeholder="请输入您的姓名" v-model="infos.name"/>
+                    <input type="text" placeholder="请输入您的姓名" v-model="data.name"/>
                 </li>
                 <li>
                     <b>出生年月</b>
-                    <input type="month" v-model="infos.brithday"/>
+                    <input type="month" v-model="data.brithday"/>
+                </li>
+                <li>
+                    <b>显示年龄</b>
+                    <input type="checkbox" v-model="data.showAge" style="vertical-align:-webkit-baseline-middle;width:15px;height:15px"/>
                 </li>
                 <li>
                     <b>联系电话</b>
-                    <input type="text" placeholder="联系电话" v-model="infos.phonenumber"/>
+                    <input type="text" placeholder="联系电话" v-model="data.phonenumber"/>
                 </li>
                 <li>
                     <b>联系邮箱</b>
-                    <input type="text" placeholder="联系邮箱" v-model="infos.email"/>
+                    <input type="text" placeholder="联系邮箱" v-model="data.email"/>
                 </li>
                 <li>
                     <b>工作年限</b>
-                    <input type="number" placeholder="工作年限" v-model="infos.working"/>
+                    <input type="number" placeholder="工作年限" v-model="data.working"/>
                 </li>
                 <li>
                     <b>照片设置</b>
-                    <input type="file"/>
+                    <input type="file" ref="logo" @change="changeLogo"/>
                 </li>
             </ul>
+            <el-button type="primary">主要按钮</el-button>
         </div>
         <div v-else-if="type === 'jiaoyu'">
             <h4>教育背景</h4>
             <ul>
                 <li>
                     <b>学校名称</b>
-                    <input type="text" placeholder="请输入您的姓名" v-model="infos.name"/>
+                    <input type="text" placeholder="请输入您的姓名" v-model="data.name"/>
                 </li>
                 <li>
                     <b>所学专业</b>
-                    <input type="text" placeholder="所学专业" v-model="infos.phonenumber"/>
+                    <input type="text" placeholder="所学专业" v-model="data.phonenumber"/>
                 </li>
                 
                 <li>
                     <b>就读时间</b>
-                    <input type="month" v-model="infos.brithday"/>
+                    <input type="month" v-model="data.brithday"/>
                     
                 </li>
                 <li>
                     <b>&nbsp;&nbsp;&nbsp;&nbsp;</b>
-                    <input type="month" v-model="infos.brithday"/>
+                    <input type="month" v-model="data.brithday"/>
                 </li>
                 <li>
                     <b>学历</b>
@@ -56,54 +61,50 @@
                         <input type="text" readonly="readonly" autocomplete="off" placeholder="选择学历">
                         <span class="el-input__suffix"></span>
                     </div>
-                    <!-- <select>
-                        <option value="0">不填</option>
-                        <option value="1">初中</option>
-                        <option value="2">高中</option>
-                        <option value="3">中专</option>
-                        <option value="4">大专</option>
-                        <option value="5">本科</option>
-                        <option value="6">学士</option>
-                        <option value="6">硕士</option>
-                        <option value="6">博士</option>
-                        <option value="6">MBA</option>
-                    </select> -->
                 </li>
                 <li>
                     <b>内容</b>
                     <div style="display:inline-block;position:relative">
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <textarea></textarea>
                     </div>
                 </li>
             </ul>
         </div>
         <div v-else-if="type === 'work'">
-            333333
+           <h4>工作经验</h4>
         </div>
         <div v-else-if="type === 'jineng'">
-            444444
+            <h4>技能特长</h4>
         </div>
         <div v-else-if="type === 'zhengshu'">
-            555555
+            <h4>荣誉证书</h4>
         </div>
         <div v-else>
-            666666
+            <h4>自我评价</h4>
         </div>
     </div>
 </template>
 <script>
-
+// import Tiptap from './Editer.vue'
 export default {
-    props: ['type'],
+    props: ['type','data'],
+    components: {
+        // Tiptap
+    },
     data() {
         return {
-            infos: {
-                name: '全民简历'
-            }
+            content:'',
+            
         }
     },
     mounted() {
         console.log(this.type)
+    },
+    methods: {
+        // 更换头像
+        changeLogo() {
+            this.getImgBase64(this.$refs.logo.files[0])
+        }
     }
 }
 </script>
@@ -137,7 +138,7 @@ p {
     position: relative;
     border-radius: 6px;
     background-color: #fff;
-    padding: 5px 20px;
+    padding: 20px;
     min-height: 500px;
     ul {
         li {

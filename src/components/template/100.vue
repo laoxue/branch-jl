@@ -4,19 +4,20 @@
       <!-- 头部信息 -->
       <div class="basicInfo" @click="edit('infos')">
         <dl class="basic_info">
-          <dt id="myname">全民简历</dt>
+          <dt id="myname">{{data.name}}</dt>
           <dd id="yixiang" style="font-size: 14px; line-height: 16px">
             <span>求职岗位:行政专员</span>
           </dd>
           <dd style="font-size: 13px; line-height: 15px">
-            <span>30岁</span>
+            <span v-if="data.showAge">{{birToage(data.brithday)}}岁</span>
+            <span v-else>{{data.brithday}}</span>
             <span>男</span>
             <span>上海</span>
-            <span>6年经验</span>
+            <span>{{data.working}}年经验</span>
           </dd>
           <dd style="font-size: 13px; line-height: 15px">
-            <span>15888888888</span>
-            <span>qmjianli@qq.com</span>
+            <span>{{data.phonenumber}}</span>
+            <span>{{data.email}}</span>
           </dd>
         </dl>
         <div class="photo_box" style="right: 50px">
@@ -31,7 +32,7 @@
         <div id="jiaoyu" class="resume_content" style="margin-top: 26px" @click="edit('jiaoyu')">
           <div
             class="module_tit"
-            style="font-size: 16px; color: #1575bf; border-color: #1575bf"
+            :style="`font-size: 16px; color: ${color}; border-color: ${color}`"
           >
             <span>教育背景</span>
           </div>
@@ -59,7 +60,7 @@
           <div class="resume_content_main">
             <div
               class="module_tit"
-              style="font-size: 16px; color: #1575bf; border-color: #1575bf"
+              :style="`font-size: 16px; color: ${color}; border-color: ${color}`"
             >
               <span>工作经验</span>
             </div>
@@ -122,7 +123,7 @@
           <div class="resume_content">
             <div
               class="module_tit"
-              style="font-size: 16px; color: #1575bf; border-color: #1575bf"
+              :style="`font-size: 16px; color: ${color}; border-color: ${color}`"
             >
               <span>技能特长</span>
             </div>
@@ -148,7 +149,7 @@
         <div id="zhengshu" style="margin-top: 26px" class="resume_content" @click="edit('zhengshu')">
           <div
             class="module_tit"
-            style="font-size: 16px; color: #1575bf; border-color: #1575bf"
+            :style="`font-size: 16px; color: ${color}; border-color: ${color}`"
           >
             <span>荣誉证书</span>
           </div>
@@ -171,7 +172,7 @@
         <div id="ziwopingjia" class="resume_content" style="margin-top:15px" @click="edit('pingjia')">
             <div
             class="module_tit"
-            style="font-size: 16px; color: #1575bf; border-color: #1575bf"
+            :style="`font-size: 16px; color: ${color}; border-color: ${color}`"
           >
             <span>自我评价</span>
           </div>
@@ -188,9 +189,18 @@
 </template>
 <script>
 export default {
+    props:['data','color'],
     methods: {
         edit(type) {
             this.$emit('changemodel',type)
+        },
+        birToage(date) {
+          console.log(date)
+          const nowDate = new Date();
+          const year = + nowDate.getFullYear();
+          const birthYear = + date.split('-')[0];
+          const age = year - birthYear;
+          return age;
         }
     }
 };
