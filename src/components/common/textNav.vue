@@ -13,7 +13,7 @@ export default {
     },
     props: ['text'],
     mounted(){
-        console.log(this.text)
+    
     }
 }
 </script>
