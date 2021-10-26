@@ -107,11 +107,10 @@ export default {
     },
     // 切换头像
     changAvatar(file) {
-      this.data.basic.avatar = URL.createObjectURL(file.raw);
+      this.data.basic.avatar = file
     },
     // 切换内容
     changeContent(object) {
-      console.log(object.content.html)
       this.data.edu.content = object.content.html
       // if(type === 'edu') {
         
@@ -129,11 +128,9 @@ export default {
         center: true,
       })
         .then(() => {
-             console.log(document.getElementById('sprintReport'))
               var oD = document.getElementById('sprintReport');
               let eleW = oD.offsetWidth;
               let eleH = oD.offsetHeight;
-              console.log(eleW, eleH)
               var canvas = document.createElement("canvas")
               canvas.width = eleW * 2
               canvas.height = eleH * 2
@@ -153,7 +150,6 @@ export default {
                 var leftHeight = contentHeight;
                 var position = 0;
 
-                console.log(pageData)
                 const doc = new jspdf('', 'pt', 'a4');
                 doc.addImage(pageData, 'PNG', 0, 0, eleW/1.45, eleH/1.45);
                 

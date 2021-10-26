@@ -1,7 +1,7 @@
 export let tems = [
     {
         id: 300,
-        preview: 'http://wooyun.icu/tu01.png'
+        preview: 'https://dali-saymore-public.oss-cn-shanghai.aliyuncs.com/blog_theme/%E6%A8%A1%E6%9D%BF01'
     },
     // {
     //     id: 400,

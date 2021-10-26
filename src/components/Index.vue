@@ -10,6 +10,15 @@
             <Temp v-for="(item, index) in tems" :key="index" :content="item"/>
           </div>
       </div>
+      <!-- <div class="template_list">
+          <h5 class="template_list_title">职</h5>
+          <p class="template_list_subtitle">
+             （=￣ω￣=）暂时就一个模板对付用吧
+          </p>
+          <div class="template">
+            <Temp v-for="(item, index) in tems" :key="index" :content="item"/>
+          </div>
+      </div> -->
   </div>
 </template>
 
@@ -17,7 +26,6 @@
 import Header from '@/components/common/Header'
 import Temp from '@/components/common/template'
 import { tems } from './../assets/js/tem'  // 模板图片
-console.log(tems)
 export default {
   name: 'Index',
   data() {
@@ -40,9 +48,9 @@ export default {
   .template_list {
       margin: 0 auto;
       position: relative;
-      margin-top: 40px;
+      // margin-top: 40px;
       width: 1200px;
-      padding: 80px 0;
+      padding: 80px 0 0 0;
       top: 10px;
       &_title {
         text-align: left;

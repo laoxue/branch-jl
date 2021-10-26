@@ -72,9 +72,10 @@
         <el-form-item label="照片设置">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action=""
+            :on-change="getfile"
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            
             :before-upload="beforeAvatarUpload"
           >
             <img
@@ -276,9 +277,31 @@ export default {
   mounted() {
   },
   methods: {
+    getfile(file) {
+        this.getBase64(file.raw).then(res => {
+          // console.log(res)
+          this.$emit("changAvatar", res);
+        })
+    },
     // 更换头像
-    handleAvatarSuccess(res, file) {
-      this.$emit("changAvatar", file);
+    // handleAvatarSuccess(res, file) {
+    //   this.$emit("changAvatar", file);
+    // },
+    getBase64(file){
+      return new Promise(function(resolve,reject){
+        let reader = new FileReader();
+        let imgResult = "";
+        reader.readAsDataURL(file);
+        reader.onload = function(){
+          imgResult = reader.result;
+        }
+        reader.onerror = function(err) {
+          reject(err)
+        }
+        reader.onloadend = function() {
+          resolve(imgResult)
+        }
+      })
     },
     exportPDF () {
       this.$emit('exportPDF')
