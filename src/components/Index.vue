@@ -2,7 +2,7 @@
   <div class="index">
       <Header/>
       <div class="template_list">
-          <h5 class="template_list_title">在线简历编辑</h5>
+            <h5 class="template_list_title">在线简历编辑</h5>
           <p class="template_list_subtitle">
              （=￣ω￣=）暂时就一个模板对付用吧
           </p>
@@ -10,21 +10,22 @@
             <Temp v-for="(item, index) in tems" :key="index" :content="item"/>
           </div>
       </div>
-      <!-- <div class="template_list">
-          <h5 class="template_list_title">职</h5>
+      <div class="template_list">
+          <h5 class="template_list_title">职言职语</h5>
           <p class="template_list_subtitle">
-             （=￣ω￣=）暂时就一个模板对付用吧
+             （=￣ω￣=）
           </p>
           <div class="template">
-            <Temp v-for="(item, index) in tems" :key="index" :content="item"/>
+            <Talk/>
           </div>
-      </div> -->
+      </div>
   </div>
 </template>
 
 <script>
 import Header from '@/components/common/Header'
 import Temp from '@/components/common/template'
+import Talk from '@/components/talkinglist'
 import { tems } from './../assets/js/tem'  // 模板图片
 export default {
   name: 'Index',
@@ -37,7 +38,8 @@ export default {
   },
   components: {
     Header,
-    Temp
+    Temp,
+    Talk
   }
 }
 </script>
