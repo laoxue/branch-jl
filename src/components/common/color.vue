@@ -8,6 +8,9 @@
         :key="index"
         :style="`background:${item.color}`"
       ></li>
+      <li :style="`background:linear-gradient(to bottom right,red,#fb0,#00ff26,blue,#fb00ff,#000);`">
+         <el-color-picker v-model="color" show-alpha style="position:absolute;opacity:0" @change="changColor({color:color})"></el-color-picker>
+      </li>
     </ul>
     <div style="padding-top: 10px">
       <el-button size="small" @click="exportJl()" type="primary"
@@ -21,6 +24,7 @@ import "../../assets/css/reset.css";
 export default {
   data() {
     return {
+      color: 'linear-gradient(to bottom right,red,#fb0,#00ff26,blue,#fb00ff,#000)',
       container: [
         {
           color: "#333333",
@@ -43,10 +47,10 @@ export default {
         {
           color: "#a08f75",
         },
-        {
-          color:
-            "linear-gradient(to bottom right,red,#fb0,#00ff26,blue,#fb00ff,#000);",
-        },
+        // {
+        //   color:
+        //     "linear-gradient(to bottom right,red,#fb0,#00ff26,blue,#fb00ff,#000);",
+        // },
       ],
     };
   },
@@ -56,25 +60,10 @@ export default {
       this.$emit("changeColor", item.color);
     },
     exportJl() {
-      // this.$alert('<span style="cursor:pointer;padding:10px;background:gray;color:white" @click="add">导出PDF</span><span style="padding:10px;background:gray;color:white;margin-left:10px;cursor:pointer">导出Word</span>', '导出类型', {
-      //     dangerouslyUseHTMLString: true
-      // });
-
-      this.$confirm("请选择导出类型?", "提示", {
-        confirmButtonText: "导出PDF",
-        cancelButtonText: "导出Word",
-        type: "warning",
-        center: true,
-      })
-        .then(() => {
-          alert('导出pdf')
-        })
-        .catch(() => {
-          alert('导出Word')
-        });
+      this.$emit('exportjl')
     },
     add() {
-      alert(1);
+      // alert(1);
     },
   },
 };

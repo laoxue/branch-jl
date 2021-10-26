@@ -280,6 +280,9 @@ export default {
     handleAvatarSuccess(res, file) {
       this.$emit("changAvatar", file);
     },
+    exportPDF () {
+      this.$emit('exportPDF')
+    },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -322,6 +325,10 @@ p {
   li {
     list-style: none;
   }
+}
+.anniu-btn {
+  display: flex;
+  justify-content: center;
 }
 .tools {
   float: right;

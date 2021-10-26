@@ -30,8 +30,8 @@ export default {
     margin-left: 12px;
     margin-right: 12px;
     box-shadow: 0 1px 10px rgb(0 0 0 / 15%);
-    width: 273px;
-    height: 380px;
+    width: 190px;
+    height: 265px;
     position: absolute;
     left: 0;
     top: 0;

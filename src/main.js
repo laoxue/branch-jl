@@ -6,7 +6,9 @@ import { Button, Input, Form,
   FormItem, DatePicker, Switch, InputNumber, Upload, Radio,
   Select, Option , Collapse,
   CollapseItem, MessageBox, ColorPicker,} from 'element-ui';
+
 Vue.use(Button);
+Vue.use(ColorPicker);
 Vue.use(Input);
 Vue.use(Form);
 Vue.use(FormItem);

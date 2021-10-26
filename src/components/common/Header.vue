@@ -1,7 +1,12 @@
 <template>
     <div class="header">
         <div class="header_container">
-            <a href="/"><div class="logo">我是logo</div></a>
+            <a href="/">
+                <div class="logo">
+                    <img :src="logo"/>
+                    <span style="font-weight:bold">在线简历</span>
+                </div>
+            </a>
             <div class="nav">
                 <ul>
                     <li v-for="(item, index) in nav_list" :key="index">
@@ -13,22 +18,24 @@
     </div>
 </template>
 <script>
+import logo from './../../assets/image/logo.png'
 export default{
     data() {
         return {
+            logo,
             nav_list: [
-                {
-                    name:'首页',
-                    route: '/'
-                },
-                {
-                    name:'模板中心',
-                    route: '/details'
-                },
-                {
-                    name:'模板商城',
-                    route: '/index'
-                }
+                // {
+                //     name:'首页',
+                //     route: '/'
+                // },
+                // {
+                //     name:'模板中心',
+                //     route: '/details'
+                // },
+                // {
+                //     name:'模板商城',
+                //     route: '/index'
+                // }
             ]
         }
     }
@@ -51,9 +58,19 @@ export default{
         .logo {
             width: 155px;
             height: 66px;
-            background: black;
+            background: pink;
             line-height: 66px;
             color: white;
+            position: relative;
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+            padding: 0 10px;
+            box-sizing: border-box;
+            img {
+                width: 55px;
+                height: 55px;
+            }
         }
         .nav {
             padding-left: 200px;

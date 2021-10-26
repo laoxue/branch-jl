@@ -3,8 +3,8 @@
       <Header/>
       <Nav :text="navlist"/>
       <div class="template_container">
-        <model @changemodel="changemodel" :data="data" :color="colors"/>
-        <color @changeColor="changeColor"/>
+        <model @changemodel="changemodel" :data="data" :color="colors" id="sprintReport"/>
+        <color @changeColor="changeColor" @exportjl="exportPDF"/>
         <tools :type="type" :data="data" @changAvatar="changAvatar" @changeContent="changeContent" @removeWork="removeWork" @addWork="addWork"/>
       </div>
   </div>
@@ -17,6 +17,9 @@ import model from './template/100'
 import tools from './common/tools'
 import color from './common/color'
 import '../assets/css/reset.css'
+import html2canvas from "html2canvas";
+import avatar from './../assets/image/avatar.png'
+import jspdf from 'jspdf';
 export default {
   name: 'Details',
   props: {
@@ -28,20 +31,20 @@ export default {
           colors: 'rgb(21, 117, 191)',
           data: {
             basic: {
-              name: '全民简历',
+              name: 'Bilibili小哥',
               brithday: '1995-04',
-              phonenumber: '18550087591',
-              email: '762452134@qq.com',
+              phonenumber: 'xxxxxxxxxxx',
+              email: 'xxxxx@email.com',
               working: '5',
               showAge: true,
-              job: '行政专员',
+              job: '软件开发工程师',
               location: '上海',
               sex: '男',
-              avatar: 'https://www.qmjianli.com/images/edit/man.png'
+              avatar: avatar
             },
             edu: {
-              school: '全民简历大学',
-              major: '工商管理',
+              school: 'bilibili大学',
+              major: '划水运营',
               startSchool: '2012-09',
               endSchool: '2016-07',
               xl: '本科',
@@ -49,14 +52,14 @@ export default {
             },
             work: [
               {
-                componey: '全民简历科技有限公司',
+                componey: '生活不能自理科技有限公司',
                 position: '行政专员',
                 startWork: '2012-09',
                 endWork: '2021-09',
                 content: '<ul data-v-19549cec=""><li data-v-19549cec=""> 拥负责本部的行政人事管理和日常事务，协助总监搞好各部门之间的综合协调，落实公司规章制度，沟通内外联系，保证上情下达和下情上报，负责对会议文件决定的事项进行催办、查办和落实，负责全公司组织系统研讨和修订。 </li><li data-v-19549cec="">编制公司人事管理制度，规避各项人事风险。</li></ul>'
               },
               {
-                componey: '一个傻瓜公司',
+                componey: '划水全靠科技股份有限公司',
                 position: '实习生',
                 startWork: '2012-09',
                 endWork: '2021-09',
@@ -117,12 +120,73 @@ export default {
       // }
       
     },
+    exportPDF() {
+      
+      this.$confirm("请选择导出类型?", "提示", {
+        confirmButtonText: "导出PDF",
+        cancelButtonText: "导出Word",
+        type: "warning",
+        center: true,
+      })
+        .then(() => {
+             console.log(document.getElementById('sprintReport'))
+              var oD = document.getElementById('sprintReport');
+              let eleW = oD.offsetWidth;
+              let eleH = oD.offsetHeight;
+              console.log(eleW, eleH)
+              var canvas = document.createElement("canvas")
+              canvas.width = eleW * 2
+              canvas.height = eleH * 2
+              var context = canvas.getContext("2d")
+              context.scale(2, 2)
+              html2canvas(oD, {
+                    dpi:1000,
+                    useCORS:true//允许canvas画布内可以跨域请求外部链接图片, 允许跨域请求。
+              }).then(canvas=> {
+                
+                var contentWidth = canvas.width;
+                var contentHeight = canvas.height;
+
+                var pageData = canvas.toDataURL("image/jpeg", 1.0);
+
+                var pageHeight = contentWidth / 592.28 * 841.89;
+                var leftHeight = contentHeight;
+                var position = 0;
+
+                console.log(pageData)
+                const doc = new jspdf('', 'pt', 'a4');
+                doc.addImage(pageData, 'PNG', 0, 0, eleW/1.45, eleH/1.45);
+                
+
+                if(leftHeight < pageHeight) {
+                    doc.addImage(pageData, 'PNG', 0, 0, eleW/1.45, eleH/1.45);
+                } else {
+                    while(leftHeight > 0) {
+                        //arg3-->距离左边距;arg4-->距离上边距;arg5-->宽度;arg6-->高度
+                        doc.addImage(pageData, 'PNG', 0, position, eleW/1.45, eleH/1.45);
+                        leftHeight -= pageHeight;
+                        position -= 841.89;
+                        //避免添加空白页
+                        if(leftHeight > 0) {
+                            doc.addPage();
+                        }
+                    }
+                }
+                doc.save(this.data.basic.job + '-' + this.data.basic.name + '.pdf');
+              })
+
+              
+        })
+        .catch(() => {
+          // alert('导出Word')
+        });
+    },
     removeWork(index) {
       this.data.work.splice(index,1)
     },
     addWork() {
       this.data.work.push({
-        componey: '全民简历科技有限公司',
+        componey: '自媒体科技有限公司',
         position: '行政专员',
         startWork: '2012-09',
         endWork: '2021-09',
